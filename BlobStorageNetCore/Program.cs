@@ -10,15 +10,33 @@ namespace BlobStorageNetCore
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
-            var ConnectionA = "DefaultEndpointsProtocol=https;AccountName=<accountnameA>;AccountKey=<keyA>;EndpointSuffix=core.windows.net";
-            var ConnectionB = "DefaultEndpointsProtocol=https;AccountName=<accountnameB>;AccountKey=<keyB>;EndpointSuffix=core.windows.net";
+            var ConnectionA = "DefaultEndpointsProtocol=https;AccountName=<>;AccountKey=<>;EndpointSuffix=core.windows.net";
+            var ConnectionB = "DefaultEndpointsProtocol=https;AccountName=<>;AccountKey=<>>;EndpointSuffix=core.windows.net";
 
-            BlobStuff(ConnectionA);
-            BlobStuff(ConnectionB);
+            try
+            {
+                BlobStuff(ConnectionA);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return 1;
+            }
+
+            try
+            {
+                BlobStuff(ConnectionB);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return 2;
+            }    
+            return 0;        
         }
 
         private static void BlobStuff(string connectionString)
